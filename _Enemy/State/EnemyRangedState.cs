@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyRangedState : EnemyAttackState
 {
-    protected D_EnemyRangedData throwingData;
-    public EnemyRangedState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyRangedData throwingData) : base(enemy, stateMachine, animBoolName)
+    protected D_EnemyRangedData _throwingData;
+    public EnemyRangedState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyRangedData throwingData) : base(enemy, stateMachine, animBoolName)
     {
-        this.throwingData = throwingData;
+        this._throwingData = throwingData;
     }
 }

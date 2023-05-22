@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class EnemyDeadState : EnemyState
 {
-    public EnemyDeadState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
+    public EnemyDeadState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName) : base(enemy, stateMachine, animBoolName)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        isAnimationFinished = false;
+        IsAnimationFinished = false;
         CanChangeState = false;
-        enemy.SetVelocity(Vector2.zero);
+        _enemy.SetVelocity(Vector2.zero);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(isAnimationFinished)
-            enemy.Dead();
+        if(IsAnimationFinished)
+            _enemy.Dead();
     }
 
     public override bool IsDeadState()

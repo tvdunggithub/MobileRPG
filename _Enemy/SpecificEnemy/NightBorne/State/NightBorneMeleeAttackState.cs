@@ -4,50 +4,50 @@ using UnityEngine;
 
 public class NightBorneMeleeAttackState : EnemyMeleeAttackState
 {
-    private D_EnemyMeleeAttack meleeAttackData;
-    private NightBorne nightBorne;
+    private D_EnemyMeleeAttack _meleeAttackData;
+    private NightBorne _nightBorne;
 
-    public NightBorneMeleeAttackState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyMeleeAttack meleeAttackData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, meleeAttackData)
+    public NightBorneMeleeAttackState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyMeleeAttack meleeAttackData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, meleeAttackData)
     {
-        this.nightBorne = nightBorne;
-        this.meleeAttackData = meleeAttackData;
+        this._nightBorne = nightBorne;
+        this._meleeAttackData = meleeAttackData;
     }
 
     public override void Enter()
     {
         base.Enter();
-        if(!nightBorne.CheckPlayerInAttackRange())
-            nightBorne.StateMachine.ChangeState(nightBorne.MoveState);
+        if(!_nightBorne.CheckPlayerInAttackRange())
+            _nightBorne.StateMachine.ChangeState(_nightBorne.MoveState);
 
     }
 
     public override void TriggerAttack()
     {
         base.TriggerAttack();  
-        nightBorne.AttackPlayer();
+        _nightBorne.AttackPlayer();
     }
 
     public override void FinishAttack()
     {
         base.FinishAttack();
-        if(nightBorne.CheckPlayerInAttackRange())
+        if(_nightBorne.CheckPlayerInAttackRange())
         {
             WaitAfterAttack();
         }else
-            nightBorne.StateMachine.ChangeState(nightBorne.MoveState);
+            _nightBorne.StateMachine.ChangeState(_nightBorne.MoveState);
     }
 
     public void WaitAfterAttack()
     {
-        nightBorne.StartCoroutine(WaitAfterAttackIE());
+        _nightBorne.StartCoroutine(WaitAfterAttackIE());
     }
 
     public IEnumerator WaitAfterAttackIE()
     {
-        nightBorne.StateMachine.ChangeState(nightBorne.IdleState);
-        nightBorne.CanAttack = false;
-        yield return new WaitForSeconds(meleeAttackData.AttackCooldown);
-        nightBorne.CanAttack = true;
+        _nightBorne.StateMachine.ChangeState(_nightBorne.IdleState);
+        _nightBorne.CanAttack = false;
+        yield return new WaitForSeconds(_meleeAttackData.AttackCooldown);
+        _nightBorne.CanAttack = true;
     }
 
 

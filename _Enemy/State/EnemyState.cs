@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class EnemyState 
 {
-    protected Enemy enemy;
+    protected Enemy _enemy;
     protected EnemyStateMachine StateMachine;
-    protected string animBoolName;
-    public bool isAnimationFinished;
-    protected float xPositionCompare;
-    protected float yPositionCompare;
-    protected Vector2 moveDirection;
+    protected int _animBoolName;
+    public bool IsAnimationFinished;
+    protected float _xPositionCompare;
+    protected float _yPositionCompare;
+    protected Vector2 _moveDirection;
     public bool CanChangeState;
     public bool IsBlockDrection;
 
     
-    public EnemyState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName)
+    public EnemyState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName)
     {
-        this.enemy = enemy;
+        this._enemy = enemy;
         this.StateMachine = stateMachine;
-        this.animBoolName = animBoolName;
+        this._animBoolName = animBoolName;
     }
 
     public virtual void Enter()
     {
-        enemy.Anim.SetBool(animBoolName, true);
+        _enemy.Anim.SetBool(_animBoolName, true);
         CanChangeState = true;
     }
 
     public virtual void Exit()
     {
-        enemy.Anim.SetBool(animBoolName, false);
+        _enemy.Anim.SetBool(_animBoolName, false);
     }
 
     public virtual void LogicUpdate()
@@ -45,42 +45,42 @@ public class EnemyState
 
     public virtual void CheckPlayerPosition()
     {
-        if(enemy.Player != null)
+        if(_enemy.Player != null)
         {
-            moveDirection = enemy.Player.transform.position - enemy.AliveGO.transform.position;
-            moveDirection.Normalize();
+            _moveDirection = _enemy.Player.Transform.position - _enemy.AliveGoTransform.position;
+            _moveDirection.Normalize();
         }
     }
 
     public virtual void ComparePlayerxPosition()
     {
-        if(!enemy.Player)
+        if(!_enemy.Player)
             return;
-        xPositionCompare = enemy.Player.transform.position.x - enemy.AliveGO.transform.position.x;
+        _xPositionCompare = _enemy.Player.Transform.position.x - _enemy.AliveGoTransform.position.x;
     }
 
     public virtual void ComparePlayeryPosition()
     {
-        if(enemy.Player == null)   
+        if(_enemy.Player == null)   
             return;
-        yPositionCompare = enemy.Player.transform.position.y - enemy.AliveGO.transform.position.y;
-        if(yPositionCompare >= 0)
-            enemy.SpriteRenderer.sortingOrder = 1;
+        _yPositionCompare = _enemy.Player.Transform.position.y - _enemy.AliveGoTransform.position.y;
+        if(_yPositionCompare >= 0)
+            _enemy.SpriteRenderer.sortingOrder = 1;
         else
-            enemy.SpriteRenderer.sortingOrder = -1;
+            _enemy.SpriteRenderer.sortingOrder = -1;
     }
 
 
     public virtual void FlipEnemy()
     {
-        if(xPositionCompare >= 0 && !enemy.IsFacingRight)
+        if(_xPositionCompare >= 0 && !_enemy.IsFacingRight)
         {
-            enemy.Flip();
-            enemy.IsFacingRight = !enemy.IsFacingRight;
-        }else if (xPositionCompare < 0 && enemy.IsFacingRight)
+            _enemy.Flip();
+            _enemy.IsFacingRight = !_enemy.IsFacingRight;
+        }else if (_xPositionCompare < 0 && _enemy.IsFacingRight)
         {
-            enemy.Flip();
-            enemy.IsFacingRight = !enemy.IsFacingRight;
+            _enemy.Flip();
+            _enemy.IsFacingRight = !_enemy.IsFacingRight;
         }
     }
 

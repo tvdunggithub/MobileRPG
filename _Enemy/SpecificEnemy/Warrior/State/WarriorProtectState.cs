@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WarriorProtectState : EnemyState
 {
-    private Warrior warrior;
-    private D_EnemyProtectState protectData;
-    public WarriorProtectState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyProtectState protectData, Warrior warrior) : base(enemy, stateMachine, animBoolName)
+    private Warrior _warrior;
+    private D_EnemyProtectState _protectData;
+    public WarriorProtectState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyProtectState protectData, Warrior warrior) : base(enemy, stateMachine, animBoolName)
     {
-        this.warrior = warrior;
-        this.protectData = protectData;
+        this._warrior = warrior;
+        this._protectData = protectData;
     }
 
     public override void Enter()
@@ -19,14 +19,14 @@ public class WarriorProtectState : EnemyState
         CanChangeState = false;
         ComparePlayerxPosition();
         FlipEnemy();
-        warrior.ChangeIdleStateCo(protectData.protectTime);
+        _warrior.ChangeIdleStateCo(_protectData.ProtectTime);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
         ComparePlayerxPosition();
-        if(warrior.IsFacingRight && xPositionCompare < 0 || !warrior.IsFacingRight && xPositionCompare > 0)
+        if(_warrior.IsFacingRight && _xPositionCompare < 0 || !_warrior.IsFacingRight && _xPositionCompare > 0)
         {
             IsBlockDrection = false;
         }

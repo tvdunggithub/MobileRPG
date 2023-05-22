@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GoblemDeadState : EnemyDeadState
 {
-    private Goblem goblem;
+    private Goblem _goblem;
 
-    public GoblemDeadState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, Goblem goblem) : base(enemy, stateMachine, animBoolName)
+    public GoblemDeadState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, Goblem goblem) : base(enemy, stateMachine, animBoolName)
     {
-        this.goblem = goblem;
+        this._goblem = goblem;
     }
 
 

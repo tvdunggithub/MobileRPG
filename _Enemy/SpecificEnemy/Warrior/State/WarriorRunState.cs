@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WarriorRunState : EnemyMoveState
 {
-    private Warrior warrior;
-    public WarriorRunState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyMove moveData, Warrior warrior) : base(enemy, stateMachine, animBoolName, moveData)
+    private Warrior _warrior;
+    public WarriorRunState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyMove moveData, Warrior warrior) : base(enemy, stateMachine, animBoolName, moveData)
     {
-        this.warrior = warrior;
+        this._warrior = warrior;
     }
 
     public override void Enter()
@@ -21,7 +21,7 @@ public class WarriorRunState : EnemyMoveState
         base.LogicUpdate();
         ComparePlayerxPosition();
         FlipEnemy();
-        if(warrior.CheckPlayerInAttackRange())
+        if(_warrior.CheckPlayerInAttackRange())
             ChangeAttackState();
         
     }
@@ -29,12 +29,12 @@ public class WarriorRunState : EnemyMoveState
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
-        warrior.SetVelocity(moveDirection * moveData.moveSpeed);
+        _warrior.SetVelocity(_moveDirection * _moveData.MoveSpeed);
     }
 
     private void ChangeAttackState()
     {
         CanChangeState = true;
-        warrior.StateMachine.ChangeState(warrior.MeleeAttackState);
+        _warrior.StateMachine.ChangeState(_warrior.MeleeAttackState);
     }
 }

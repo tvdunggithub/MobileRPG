@@ -5,11 +5,11 @@ using UnityEngine;
 public class AnimationToStateMachine : MonoBehaviour
 {
     public EnemyAttackState AttackState;
-    private Enemy enemy;
+    private Enemy _enemy;
 
     private void Start()
     {
-        enemy = GetComponentInParent<Enemy>();
+        _enemy = GetComponentInParent<Enemy>();
     }
     private void TriggerAttack()
     {
@@ -23,6 +23,6 @@ public class AnimationToStateMachine : MonoBehaviour
 
     private void AnimationFinished()
     {
-        enemy.StateMachine.CurrentState.isAnimationFinished = true;
+        _enemy.StateMachine.CurrentState.IsAnimationFinished = true;
     }
 }

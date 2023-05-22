@@ -41,12 +41,12 @@ public class Shaman : Enemy
     public override void Start() 
     {
         base.Start();
-        IdleState = new ShamanIdleState(this, StateMachine, "idle", _idleData, this);
-        WalkState = new ShamanWalkState(this, StateMachine, "walk", _walkData, this);
-        DeadState = new ShamanDeadState(this, StateMachine, "dead");
-        MagicOneState = new ShamanMagicOneState(this, StateMachine, "magic1", _magicOneData, this);
-        MagicTwoState = new ShamanMagicTwoState(this, StateMachine, "magic2", _magicTwoData, this);
-        MagicThreeState = new ShamanMagicThreeState(this, StateMachine, "magic3", _magicThreeData, this);
+        IdleState = new ShamanIdleState(this, StateMachine, StaticString.Idle, _idleData, this);
+        WalkState = new ShamanWalkState(this, StateMachine, StaticString.Walk, _walkData, this);
+        DeadState = new ShamanDeadState(this, StateMachine, StaticString.Dead);
+        MagicOneState = new ShamanMagicOneState(this, StateMachine, StaticString.MagicOne, _magicOneData, this);
+        MagicTwoState = new ShamanMagicTwoState(this, StateMachine, StaticString.MagicTwo, _magicTwoData, this);
+        MagicThreeState = new ShamanMagicThreeState(this, StateMachine, StaticString.MagicThree, _magicThreeData, this);
 
         StateMachine.Initialize(IdleState);
         _spriteRenderer = AliveGO.GetComponent<SpriteRenderer>();
@@ -91,7 +91,7 @@ public class Shaman : Enemy
 
     public void Flash()
     {
-        AliveGO.transform.position = OppositePos.position;
+        AliveGoTransform.position = OppositePos.position;
         Flip();
         IsFacingRight = !IsFacingRight;
         StateMachine.ChangeState(IdleState);

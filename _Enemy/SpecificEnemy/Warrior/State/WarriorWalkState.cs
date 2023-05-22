@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class WarriorWalkState : EnemyMoveState
 {
-    private Warrior warrior;
-    public WarriorWalkState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyMove moveData, Warrior warrior) : base(enemy, stateMachine, animBoolName, moveData)
+    private Warrior _warrior;
+    public WarriorWalkState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyMove moveData, Warrior warrior) : base(enemy, stateMachine, animBoolName, moveData)
     {
-        this.warrior = warrior;
+        this._warrior = warrior;
     }
 
     public override void Enter()
     {
         base.Enter();
-        warrior.StartCoroutineChangeState(2f, warrior.IdleState);
+        _warrior.StartCoroutineChangeState(2f, _warrior.IdleState);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(warrior.CheckPlayerInMinAggroRange())
+        if(_warrior.CheckPlayerInMinAggroRange())
         {
-            warrior.StateMachine.ChangeState(warrior.RunState);
+            _warrior.StateMachine.ChangeState(_warrior.RunState);
         }
     }
 
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
-        warrior.SetVelocity(moveData.moveSpeed * warrior.AliveGO.transform.right);
+        _warrior.SetVelocity(_moveData.MoveSpeed * _warrior.AliveGoTransform.right);
     }
 }

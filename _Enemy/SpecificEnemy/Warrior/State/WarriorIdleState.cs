@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class WarriorIdleState : EnemyIdleState
 {
-    private Warrior warrior;
-    public WarriorIdleState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyIdle idleData, Warrior warrior) : base(enemy, stateMachine, animBoolName, idleData)
+    private Warrior _warrior;
+    public WarriorIdleState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyIdle idleData, Warrior warrior) : base(enemy, stateMachine, animBoolName, idleData)
     {
-        this.warrior = warrior;
+        this._warrior = warrior;
     }
 
     public override void Enter()
     {
         base.Enter();
-        warrior.SetVelocity(Vector2.zero);
-        if(!warrior.CheckPlayerInMinAggroRange())
-            warrior.StartCoroutineChangeStateAndFlip(idleData.timeToFlip, warrior.WalkState);
+        _warrior.SetVelocity(Vector2.zero);
+        if(!_warrior.CheckPlayerInMinAggroRange())
+            _warrior.StartCoroutineChangeStateAndFlip(_idleData.TimeToFlip, _warrior.WalkState);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(warrior.CheckPlayerInMinAggroRange())
-            warrior.StateMachine.ChangeState(warrior.RunState);
-        if(warrior.CheckPlayerInAttackRange())
-            warrior.StateMachine.ChangeState(warrior.MeleeAttackState);
+        if(_warrior.CheckPlayerInMinAggroRange())
+            _warrior.StateMachine.ChangeState(_warrior.RunState);
+        if(_warrior.CheckPlayerInAttackRange())
+            _warrior.StateMachine.ChangeState(_warrior.MeleeAttackState);
     }
 
 }

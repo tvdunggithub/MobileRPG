@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ShamanWalkState : EnemyMoveState
 {
-    private Shaman shaman;
+    private Shaman _shaman;
 
-    public ShamanWalkState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyMove moveData, Shaman shaman) : base(enemy, stateMachine, animBoolName, moveData)
+    public ShamanWalkState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyMove moveData, Shaman shaman) : base(enemy, stateMachine, animBoolName, moveData)
     {
-        this.shaman = shaman;
+        this._shaman = shaman;
     }
 }

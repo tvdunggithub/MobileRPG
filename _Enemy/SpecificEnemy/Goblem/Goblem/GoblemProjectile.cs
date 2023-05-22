@@ -5,15 +5,15 @@ using UnityEngine;
 public class GoblemProjectile : MonoBehaviour
 {
 
-    private Rigidbody2D rb;
-    private Goblem goblem;
+    private Rigidbody2D _rb;
+    private Goblem _goblem;
     
-    public D_EnemyRangedData throwingData;
+    public D_EnemyRangedData _throwingData;
 
     private void Awake() 
     {
-        rb = GetComponent<Rigidbody2D>();
-        goblem = transform.parent.GetComponent<Goblem>();     
+        _rb = GetComponent<Rigidbody2D>();
+        _goblem = transform.parent.GetComponent<Goblem>();     
     }
 
     private void Update()
@@ -22,7 +22,7 @@ public class GoblemProjectile : MonoBehaviour
     }
     private void FixedUpdate() 
     {
-        rb.velocity = goblem.ShootDirection * throwingData.projectileSpeed;
+        _rb.velocity = _goblem.ShootDirection * _throwingData.ProjectileSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -30,7 +30,7 @@ public class GoblemProjectile : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             PlayerDamageable playerDamageable = other.GetComponent<PlayerDamageable>();
-            playerDamageable.Damage(goblem._attackDetails);
+            playerDamageable.Damage(_goblem._attackDetails);
         }
     }
 }

@@ -5,27 +5,27 @@ using UnityEngine;
 public class BossIDamageable : MonoBehaviour, IDamageable
 {
 
-    private Enemy enemy;
-    public HpController hpController;
+    private Enemy _enemy;
+    public HpController HpController;
 
     private void Awake() 
     {
-        enemy = GetComponent<Enemy>();
+        _enemy = GetComponent<Enemy>();
     }
 
     public void Damage(AttackDetails attackDetails)
     {
-        if(enemy.StateMachine.CurrentState.IsBlockDrection)
-            enemy.FloatingDamageText(enemy.AliveGO.transform.position , "Block");
+        if(_enemy.StateMachine.CurrentState.IsBlockDrection)
+            _enemy.FloatingDamageText(_enemy.AliveGoTransform.position , "Block");
         else
         {
-            enemy.CurrentHeal -= attackDetails.DamageAmount;
-            if(enemy.CurrentHeal < 0)
-                enemy.CurrentHeal = 0;
-            enemy.FloatingDamageText(enemy.AliveGO.transform.position , attackDetails.DamageAmount.ToString());
-            enemy.ChangeDeadState();
+            _enemy.CurrentHeal -= attackDetails.DamageAmount;
+            if(_enemy.CurrentHeal < 0)
+                _enemy.CurrentHeal = 0;
+            _enemy.FloatingDamageText(_enemy.AliveGoTransform.position , attackDetails.DamageAmount.ToString());
+            _enemy.ChangeDeadState();
         }
-        hpController.ReduceHp(enemy.CurrentHeal/enemy.EnemyBaseData.MaxHp);
+        HpController.ReduceHp(_enemy.CurrentHeal/_enemy.EnemyBaseData.MaxHp);
     }
 
     public void DamageEffect()

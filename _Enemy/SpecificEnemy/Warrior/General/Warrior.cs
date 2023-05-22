@@ -34,12 +34,12 @@ public class Warrior : Enemy
     public override void Start() 
     {
         base.Start();
-        IdleState = new WarriorIdleState(this, StateMachine, "idle", _idleData, this);
-        WalkState = new WarriorWalkState(this, StateMachine, "walk", _walkData, this);
-        RunState = new WarriorRunState(this, StateMachine, "run", _runData, this);
-        DeadState = new WarriorDeadState(this, StateMachine, "dead");
-        MeleeAttackState = new WarriorMeleeAttackState(this, StateMachine, "meleeAttack", _meleeAttackData, this);
-        ProtectState = new WarriorProtectState(this, StateMachine, "protect", _protectData, this);
+        IdleState = new WarriorIdleState(this, StateMachine, StaticString.Idle, _idleData, this);
+        WalkState = new WarriorWalkState(this, StateMachine, StaticString.Walk, _walkData, this);
+        RunState = new WarriorRunState(this, StateMachine, StaticString.Run, _runData, this);
+        DeadState = new WarriorDeadState(this, StateMachine, StaticString.Dead);
+        MeleeAttackState = new WarriorMeleeAttackState(this, StateMachine, StaticString.MeleeAttack, _meleeAttackData, this);
+        ProtectState = new WarriorProtectState(this, StateMachine, StaticString.Protect, _protectData, this);
 
         StateMachine.Initialize(IdleState);
         IsFacingRight = true;
@@ -48,7 +48,7 @@ public class Warrior : Enemy
 
     public virtual bool CheckPlayerInAttackRange()
     {
-        return Physics2D.OverlapCircle(_playerCheckPos.transform.position, _meleeAttackData.AttackRadius, EnemyBaseData.WhatIsPlayer);
+        return Physics2D.OverlapCircle(_playerCheckPos.position, _meleeAttackData.AttackRadius, EnemyBaseData.WhatIsPlayer);
     }
 
     public virtual void AttackPlayer()

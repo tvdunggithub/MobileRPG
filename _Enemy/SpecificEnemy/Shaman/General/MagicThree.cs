@@ -7,20 +7,24 @@ public class MagicThree : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _aim;
     private Shaman _shaman;
-    private GameObject _player;
+    private Player _player;
     private Vector2 _chaseDirection;
     private bool _isExplosion;
     private bool _isPlayerStopped;
+    public Transform Transform;
     [SerializeField]
-    private float chaseSpeed;
+    private float _chaseSpeed;
+    private WaitForSeconds _waitForSecondsStop;
 
     private void Awake() 
     {
         _rb = GetComponent<Rigidbody2D>();
         _aim = GetComponent<Animator>();
-        _player = GameObject.Find("Player");
+        _player = GameObject.Find(StaticString.Player).GetComponent<Player>();
         _shaman = GetComponentInParent<Shaman>();
-        _aim.SetBool("chasing", true);
+        _aim.SetBool(StaticString.Chasing, true);
+        _waitForSecondsStop = new WaitForSeconds(0.2f);
+        Transform = transform;
     }
 
     private void Update() 
@@ -39,15 +43,15 @@ public class MagicThree : MonoBehaviour
     {
         if(_isExplosion)
             return;
-        _chaseDirection.x = _player.transform.position.x - transform.position.x;
-        _chaseDirection.y = _player.transform.position.y - transform.position.y;
+        _chaseDirection.x = _player.Transform.position.x - Transform.position.x;
+        _chaseDirection.y = _player.Transform.position.y - Transform.position.y;
         _chaseDirection.Normalize();
     }
 
     private void ChangeExplosionState()
     {
-        _aim.SetBool("chasing", false);
-        _aim.SetBool("explosion", true);
+        _aim.SetBool(StaticString.Chasing, false);
+        _aim.SetBool(StaticString.Explosion, true);
         _rb.velocity = Vector2.zero;
         _isExplosion = true;
     }
@@ -56,7 +60,7 @@ public class MagicThree : MonoBehaviour
     {
         if(_isExplosion || _isPlayerStopped)
             return;
-        _rb.velocity = _chaseDirection * chaseSpeed;
+        _rb.velocity = _chaseDirection * _chaseSpeed;
     }
 
     private void AnimationFinished()
@@ -79,16 +83,16 @@ public class MagicThree : MonoBehaviour
     {
         if(_shaman.Player == null)
             return false;
-        return Mathf.Abs(transform.position.x - _player.transform.position.x) <= 0.1 
-                && Mathf.Abs(transform.position.y - _player.transform.position.y) <= 0.1;
+        return Mathf.Abs(Transform.position.x - _player.Transform.position.x) <= 0.1 
+                && Mathf.Abs(Transform.position.y - _player.Transform.position.y) <= 0.1;
     }
 
     private bool IsPlayerInMaxRange()
     {
         if(_shaman.Player == null)
             return false;
-        return Mathf.Abs(transform.position.x - _player.transform.position.x) <= 0.8 
-                && Mathf.Abs(transform.position.y - _player.transform.position.y) <= 0.8;
+        return Mathf.Abs(Transform.position.x - _player.Transform.position.x) <= 0.8 
+                && Mathf.Abs(Transform.position.y - _player.Transform.position.y) <= 0.8;
     }
 
     private void Damage()
@@ -100,7 +104,7 @@ public class MagicThree : MonoBehaviour
     private IEnumerator Stop()
     {
         _rb.velocity = Vector2.zero;       
-        yield return new WaitForSeconds(0.2f);
+        yield return _waitForSecondsStop;
         _isPlayerStopped = false;
     }
 

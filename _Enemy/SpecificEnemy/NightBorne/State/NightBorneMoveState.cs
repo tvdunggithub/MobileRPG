@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NightBorneMoveState : EnemyMoveState
 {
-    private NightBorne nightBorne;
+    private NightBorne _nightBorne;
 
-    public NightBorneMoveState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyMove moveData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, moveData)
+    public NightBorneMoveState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyMove moveData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, moveData)
     {
-        this.nightBorne = nightBorne;
+        this._nightBorne = nightBorne;
     }
 
     public override void Enter()
@@ -19,12 +19,12 @@ public class NightBorneMoveState : EnemyMoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(nightBorne.CheckPlayerInAttackRange() && nightBorne.CanAttack) 
-            StateMachine.ChangeState(nightBorne.MeleeAttackState);
-        else if(nightBorne.CheckPlayerInAttackRange() && !nightBorne.CanAttack)
-            StateMachine.ChangeState(nightBorne.IdleState);
-        if(nightBorne.Player == null)
-            nightBorne.StateMachine.ChangeState(nightBorne.IdleState);
+        if(_nightBorne.CheckPlayerInAttackRange() && _nightBorne.CanAttack) 
+            StateMachine.ChangeState(_nightBorne.MeleeAttackState);
+        else if(_nightBorne.CheckPlayerInAttackRange() && !_nightBorne.CanAttack)
+            StateMachine.ChangeState(_nightBorne.IdleState);
+        if(_nightBorne.Player == null)
+            _nightBorne.StateMachine.ChangeState(_nightBorne.IdleState);
         else
         {
             ComparePlayerxPosition();
@@ -35,6 +35,6 @@ public class NightBorneMoveState : EnemyMoveState
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
-        enemy.SetVelocity(moveDirection * moveData.moveSpeed);
+        _enemy.SetVelocity(_moveDirection * _moveData.MoveSpeed);
     }
 }

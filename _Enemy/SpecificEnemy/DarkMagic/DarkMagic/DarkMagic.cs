@@ -5,22 +5,22 @@ using UnityEngine;
 public class DarkMagic : Enemy
 {
     [SerializeField]
-    private D_EnemyIdle idleData;
+    private D_EnemyIdle _idleData;
     [SerializeField]
-    private D_EnemyPlayerDetected playerDetectedData;
+    private D_EnemyPlayerDetected _playerDetectedData;
     [SerializeField]
-    private D_EnemySpell spellData;
+    private D_EnemySpell _spellData;
     [SerializeField]
-    private GameObject magicAimGO;
+    private GameObject _magicAimGO;
     [HideInInspector]
-    public Animator magicAimAnimator;
+    public Animator MagicAimAnimator;
     [HideInInspector]
     public MagicAim MagicAim;
     [HideInInspector]
     public bool IsExploding;
     public GameObject MagicAimGO
     {
-        get { return magicAimGO; }
+        get { return _magicAimGO; }
     }
 
     public DarkMagicIdleState IdleState { get; private set; }
@@ -30,11 +30,11 @@ public class DarkMagic : Enemy
     public override void Start()
     {
         base.Start();
-        IdleState  = new DarkMagicIdleState(this, StateMachine, "idle", idleData,this);
-        DeadState = new DarkMagicDeadState(this, StateMachine, "dead");
-        PlayerDetectedState = new DarkMagicPlayerDetectedState(this, StateMachine, "playerDetected", playerDetectedData, this);
-        SpellState = new DarkMagicSpellState(this, StateMachine, "spell" , spellData, this);
-        _attackDetails.DamageAmount = spellData.spellDamage;
+        IdleState  = new DarkMagicIdleState(this, StateMachine, StaticString.Idle, _idleData,this);
+        DeadState = new DarkMagicDeadState(this, StateMachine, StaticString.Dead);
+        PlayerDetectedState = new DarkMagicPlayerDetectedState(this, StateMachine, StaticString.PlayerDetected, _playerDetectedData, this);
+        SpellState = new DarkMagicSpellState(this, StateMachine, StaticString.Spell , _spellData, this);
+        _attackDetails.DamageAmount = _spellData.SpellDamage;
 
         StateMachine.Initialize(IdleState);
     }
@@ -52,8 +52,8 @@ public class DarkMagic : Enemy
 
     public void Explosion()
     {
-        magicAimAnimator.SetBool("aim", false);
-        magicAimAnimator.SetBool("explosion", true);
+        MagicAimAnimator.SetBool("aim", false);
+        MagicAimAnimator.SetBool("explosion", true);
     }
 
 }

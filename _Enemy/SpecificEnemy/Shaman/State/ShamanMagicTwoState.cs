@@ -7,7 +7,7 @@ public class ShamanMagicTwoState : EnemyAttackState
 {
     private Shaman shaman;
     private D_ShamanMagicTwo _magicTwoData;
-    public ShamanMagicTwoState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_ShamanMagicTwo _magicTwoData, Shaman shaman) : base(enemy, stateMachine, animBoolName)
+    public ShamanMagicTwoState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_ShamanMagicTwo _magicTwoData, Shaman shaman) : base(enemy, stateMachine, animBoolName)
     {
         this.shaman = shaman;
         this._magicTwoData = _magicTwoData;

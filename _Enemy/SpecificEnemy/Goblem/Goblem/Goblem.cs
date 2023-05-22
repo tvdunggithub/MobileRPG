@@ -6,13 +6,13 @@ public class Goblem : Enemy
 {
 
     [SerializeField]
-    private D_EnemyIdle idleData;
+    private D_EnemyIdle _idleData;
     [SerializeField]
-    private D_EnemyPlayerDetected playerDetectedData;
+    private D_EnemyPlayerDetected _playerDetectedData;
     [SerializeField]
-    private D_EnemyRangedData throwingData;
+    private D_EnemyRangedData _throwingData;
     [SerializeField]
-    private Transform projectileTransform;
+    private Transform _projectileTransform;
 
     public GoblemIdleState IdleState { get; private set; }
     public GoblemPlayerDetectedState PlayerDetectedState { get; private set; }
@@ -23,8 +23,8 @@ public class Goblem : Enemy
     public LineRenderer LineRenderer;
     public Transform ProjectileTransform
     {
-        get { return projectileTransform; }
-        private set { projectileTransform = value; }
+        get { return _projectileTransform; }
+        private set { _projectileTransform = value; }
     }
 
     public override void Awake() 
@@ -36,12 +36,12 @@ public class Goblem : Enemy
     public override void Start() 
     {
         base.Start();
-        IdleState = new GoblemIdleState(this, StateMachine, "idle", idleData, this);
-        PlayerDetectedState = new GoblemPlayerDetectedState(this, StateMachine, "playerDetected", playerDetectedData, this);
-        ThrowingState = new GoblemThrowingState(this, StateMachine, "throwing", throwingData, this);
-        DeadState = new GoblemDeadState(this, StateMachine, "dying", this);
+        IdleState = new GoblemIdleState(this, StateMachine, StaticString.Idle, _idleData, this);
+        PlayerDetectedState = new GoblemPlayerDetectedState(this, StateMachine, StaticString.PlayerDetected, _playerDetectedData, this);
+        ThrowingState = new GoblemThrowingState(this, StateMachine, StaticString.Throwing, _throwingData, this);
+        DeadState = new GoblemDeadState(this, StateMachine, StaticString.Dead, this);
         
-        _attackDetails.DamageAmount = throwingData.AttackDamage;
+        _attackDetails.DamageAmount = _throwingData.AttackDamage;
         IsFacingRight = true;
 
         StateMachine.Initialize(IdleState);

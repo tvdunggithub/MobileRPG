@@ -23,10 +23,10 @@ public class NightBorne : Enemy
     public override void Start() 
     {
         base.Start();
-        MoveState = new NightBorneMoveState(this, StateMachine, "move", _moveData, this);
-        IdleState = new NightBorneIdleState(this, StateMachine, "idle", _idleData, this);
-        MeleeAttackState = new NightBorneMeleeAttackState(this, StateMachine, "meleeAttack", _meleeAttackData, this);
-        DeadState = new NightBorneDeadState(this, StateMachine, "dead", this);
+        MoveState = new NightBorneMoveState(this, StateMachine, StaticString.Move, _moveData, this);
+        IdleState = new NightBorneIdleState(this, StateMachine, StaticString.Idle, _idleData, this);
+        MeleeAttackState = new NightBorneMeleeAttackState(this, StateMachine, StaticString.MeleeAttack, _meleeAttackData, this);
+        DeadState = new NightBorneDeadState(this, StateMachine, StaticString.Dead, this);
 
         StateMachine.Initialize(IdleState);
         Flip();

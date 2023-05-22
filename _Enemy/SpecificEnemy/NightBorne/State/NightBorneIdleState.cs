@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class NightBorneIdleState : EnemyIdleState
 {
-    private NightBorne nightBorne;
-    public NightBorneIdleState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyIdle idleData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, idleData)
+    private NightBorne _nightBorne;
+    public NightBorneIdleState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyIdle idleData, NightBorne nightBorne) : base(enemy, stateMachine, animBoolName, idleData)
     {
-        this.nightBorne = nightBorne;
+        this._nightBorne = nightBorne;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(nightBorne.CheckPlayerInMinAggroRange() && !nightBorne.CheckPlayerInAttackRange())
-            nightBorne.StateMachine.ChangeState(nightBorne.MoveState);
-        if(nightBorne.CheckPlayerInAttackRange() && nightBorne.CanAttack) 
-            StateMachine.ChangeState(nightBorne.MeleeAttackState);
+        if(_nightBorne.CheckPlayerInMinAggroRange() && !_nightBorne.CheckPlayerInAttackRange())
+            _nightBorne.StateMachine.ChangeState(_nightBorne.MoveState);
+        if(_nightBorne.CheckPlayerInAttackRange() && _nightBorne.CanAttack) 
+            StateMachine.ChangeState(_nightBorne.MeleeAttackState);
     }
 }

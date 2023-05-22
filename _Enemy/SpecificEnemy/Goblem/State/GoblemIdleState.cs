@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class GoblemIdleState : EnemyIdleState
 {
-    private Goblem goblem;
-    public GoblemIdleState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyIdle idleData, Goblem goblem) : base(enemy, stateMachine, animBoolName, idleData)
+    private Goblem _goblem;
+    public GoblemIdleState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyIdle idleData, Goblem goblem) : base(enemy, stateMachine, animBoolName, idleData)
     {
-        this.goblem = goblem;
+        this._goblem = goblem;
     }
 
     public override void Enter()
     {
         base.Enter();
-        goblem.IsIdling = true;
-        goblem.StartCoroutineToFlip(idleData.timeToFlip);
+        _goblem.IsIdling = true;
+        _goblem.StartCoroutineToFlip(_idleData.TimeToFlip);
     }
 
     public override void Exit()
     {
         base.Exit();
-        goblem.IsIdling = false;
+        _goblem.IsIdling = false;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        ChangeStateIfDetected(goblem.PlayerDetectedState);
+        ChangeStateIfDetected(_goblem.PlayerDetectedState);
     }
 
 }

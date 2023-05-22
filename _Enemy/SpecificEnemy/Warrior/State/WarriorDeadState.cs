@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarriorDeadState : EnemyDeadState
 {
-    public WarriorDeadState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
+    public WarriorDeadState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName) : base(enemy, stateMachine, animBoolName)
     {
     }
 

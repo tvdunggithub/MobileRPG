@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ShamanIdleState : EnemyIdleState
 {
-    private Shaman shaman;
+    private Shaman _shaman;
     private int _turn;
-    public ShamanIdleState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_EnemyIdle idleData, Shaman shaman) : base(enemy, stateMachine, animBoolName, idleData)
+    public ShamanIdleState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName, D_EnemyIdle idleData, Shaman shaman) : base(enemy, stateMachine, animBoolName, idleData)
     {
-        this.shaman = shaman;
+        this._shaman = shaman;
     }
 
     public override void Enter()
@@ -22,7 +22,7 @@ public class ShamanIdleState : EnemyIdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(enemy.CheckPlayerInMinAggroRange())
+        if(_enemy.CheckPlayerInMinAggroRange())
             ChangeState();
     }
 
@@ -31,16 +31,16 @@ public class ShamanIdleState : EnemyIdleState
         switch(_turn) 
         {
             case 1:
-                shaman.StartCoroutineChangeState(2f, shaman.MagicOneState);
+                _shaman.StartCoroutineChangeState(2f, _shaman.MagicOneState);
                 break;
             case 2:
-                shaman.StartCoroutineChangeState(0.2f, shaman.MagicOneState);
+                _shaman.StartCoroutineChangeState(0.2f, _shaman.MagicOneState);
                 break;
             case 3:
-                shaman.StartCoroutineChangeState(2f, shaman.MagicThreeState);
+                _shaman.StartCoroutineChangeState(2f, _shaman.MagicThreeState);
                 break;
             case 4:
-                shaman.StartCoroutineChangeState(2f, shaman.MagicTwoState);
+                _shaman.StartCoroutineChangeState(2f, _shaman.MagicTwoState);
                 break;
         }
     }

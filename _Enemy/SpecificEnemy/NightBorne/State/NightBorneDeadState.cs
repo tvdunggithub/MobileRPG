@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class NightBorneDeadState : EnemyDeadState
 {
-    private NightBorne nightBorne;
-    public NightBorneDeadState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName,  NightBorne nightBorne) : base(enemy, stateMachine, animBoolName)
+    private NightBorne _nightBorne;
+    public NightBorneDeadState(Enemy enemy, EnemyStateMachine stateMachine, int animBoolName,  NightBorne nightBorne) : base(enemy, stateMachine, animBoolName)
     {
-        this.nightBorne = nightBorne;
+        this._nightBorne = nightBorne;
     }
 }

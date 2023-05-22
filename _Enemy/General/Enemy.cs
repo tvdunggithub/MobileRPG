@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public Animator Anim { get; private set; }
     public GameObject AliveGO { get; private set; }
     private Rigidbody2D _rb;
-    public GameObject Player { get; private set; }
+    public Player Player { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public AnimationToStateMachine Atsm { get; protected set; }
     public AttackDetails _attackDetails;
@@ -27,16 +27,22 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject DamageText;
     public EnemyDeadState DeadState { get; protected set; }
+    [HideInInspector]
+    public Transform Transform;
+    [HideInInspector]
+    public Transform AliveGoTransform;
 
     public virtual void Awake()
     {
-        AliveGO = transform.Find("Alive").gameObject;
+        Transform = transform;
+        AliveGoTransform = AliveGO.transform;
+        AliveGO = Transform.Find(StaticString.Alive).gameObject;
         _rb = AliveGO.GetComponent<Rigidbody2D>();
         Anim = AliveGO.GetComponent<Animator>();
         Atsm = AliveGO.GetComponent<AnimationToStateMachine>();
         SpriteRenderer = AliveGO.GetComponent<SpriteRenderer>();
         StateMachine = new EnemyStateMachine();
-        Player = GameObject.Find("Player");
+        Player = GameObject.Find(StaticString.Player).GetComponent<Player>();
         CanAttack = true;
     }
 
@@ -62,7 +68,7 @@ public class Enemy : MonoBehaviour
 
     public virtual bool CheckPlayerInMinAggroRange()
     {
-        return Physics2D.OverlapCircle(AliveGO.transform.position, EnemyBaseData.PlayerDetectedRadius, EnemyBaseData.WhatIsPlayer);
+        return Physics2D.OverlapCircle(AliveGoTransform.position, EnemyBaseData.PlayerDetectedRadius, EnemyBaseData.WhatIsPlayer);
     }
 
     private IEnumerator WaitAndFlipWhenIdling(float waitTime)
@@ -144,7 +150,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void FloatingDamageText(Vector3 enemyPosition, string damageAmount)
     {
-        var FloatingGO = Instantiate(DamageText, enemyPosition, Quaternion.identity);
+        GameObject FloatingGO = Instantiate(DamageText, enemyPosition, Quaternion.identity);
         FloatingGO.GetComponent<FloatingText>().textMesh.text = damageAmount.ToString();
         if(damageAmount == "Block")
             FloatingGO.GetComponent<FloatingText>().textMesh.color = Color.white;
