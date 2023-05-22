@@ -48,12 +48,12 @@ public class Warrior : Enemy
 
     public virtual bool CheckPlayerInAttackRange()
     {
-        return Physics2D.OverlapCircle(_playerCheckPos.transform.position, _meleeAttackData.AttackRadius, EnemyBaseData.whatIsPlayer);
+        return Physics2D.OverlapCircle(_playerCheckPos.transform.position, _meleeAttackData.AttackRadius, EnemyBaseData.WhatIsPlayer);
     }
 
     public virtual void AttackPlayer()
     {
-        Collider2D detectedObject = Physics2D.OverlapArea(_overlapAttackPointA.position, _overlapAttackPointB.position, EnemyBaseData.whatIsPlayer);
+        Collider2D detectedObject = Physics2D.OverlapArea(_overlapAttackPointA.position, _overlapAttackPointB.position, EnemyBaseData.WhatIsPlayer);
         if(detectedObject != null)
         {
             PlayerDamageable playerDamageable = detectedObject.GetComponent<PlayerDamageable>();

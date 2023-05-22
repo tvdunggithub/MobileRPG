@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 
     public virtual bool CheckPlayerInMinAggroRange()
     {
-        return Physics2D.OverlapCircle(AliveGO.transform.position, EnemyBaseData.playerDetectedRadius, EnemyBaseData.whatIsPlayer);
+        return Physics2D.OverlapCircle(AliveGO.transform.position, EnemyBaseData.PlayerDetectedRadius, EnemyBaseData.WhatIsPlayer);
     }
 
     private IEnumerator WaitAndFlipWhenIdling(float waitTime)

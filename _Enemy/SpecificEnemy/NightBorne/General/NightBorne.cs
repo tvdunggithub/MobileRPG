@@ -35,12 +35,12 @@ public class NightBorne : Enemy
 
     public virtual bool CheckPlayerInAttackRange()
     {
-        return Physics2D.OverlapCircle(AliveGO.transform.position, _meleeAttackData.AttackRange, EnemyBaseData.whatIsPlayer);
+        return Physics2D.OverlapCircle(AliveGO.transform.position, _meleeAttackData.AttackRange, EnemyBaseData.WhatIsPlayer);
     }
 
     public void AttackPlayer()
     {
-        Collider2D detectedObject = Physics2D.OverlapCircle(_meleeAttackTranform.position, _meleeAttackData.AttackRadius, EnemyBaseData.whatIsPlayer);
+        Collider2D detectedObject = Physics2D.OverlapCircle(_meleeAttackTranform.position, _meleeAttackData.AttackRadius, EnemyBaseData.WhatIsPlayer);
         if(detectedObject != null)
         {
             PlayerDamageable playerDamageable = detectedObject.GetComponent<PlayerDamageable>();
